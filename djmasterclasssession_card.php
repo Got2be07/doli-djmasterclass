@@ -465,8 +465,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (empty($reshook))
 		{
 			// Send
-			if (empty($user->socid)) {
+			/*if (empty($user->socid)) {
 				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a>'."\n";
+			}*/
+
+			// Show stagiaires
+			if (empty($user->socid)) {
+				print '<a class="butAction" href="'.dol_buildpath('/djmasterclass/djmasterclassstagiaire_list.php', 1).'?search_fk_djmasterclasssession='.$object->id.'">'.$langs->trans('ShowStagiaires').'</a>'."\n";
 			}
 
 			// Back to draft

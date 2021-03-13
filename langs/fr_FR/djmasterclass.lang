@@ -59,3 +59,5 @@ DjMasterclassStagiaires=Stagiaires
 DjMasterclassSession=Session Masterclass DJ
 NewDjMasterclassSession=Nouvelle session Masterclass DJ
 ListDjMasterclassSession=Liste des sessions masterclass DJ
+ShowStagiaires=Voir la liste des participants
+StagiaireSession=Stagiaire

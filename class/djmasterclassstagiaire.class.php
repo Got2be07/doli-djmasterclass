@@ -56,7 +56,7 @@ class DjMasterclassStagiaire extends CommonObject
 	/**
 	 * @var string String with name of icon for djmasterclassstagiaire. Must be the part after the 'object_' into object_djmasterclassstagiaire.png
 	 */
-	public $picto = 'djmasterclassstagiaire@djmasterclass';
+	public $picto = 'user';
 
 
 	const STATUS_DRAFT = 0;
@@ -94,7 +94,7 @@ class DjMasterclassStagiaire extends CommonObject
 	 * @var array  Array with all fields and their property. Do not use it as a static var. It may be modified by constructor.
 	 */
 	public $fields=array(
-		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>0, 'noteditable'=>'1', 'index'=>1, 'comment'=>"Id"),
+		'rowid' => array('type'=>'integer:DjMasterclassStagiaire:djmasterclass/class/djmasterclassstagiaire.class.php', 'label'=>'StagiaireSession', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>2, 'noteditable'=>'1', 'index'=>1, 'comment'=>"Id"),
 		'amount' => array('type'=>'price', 'label'=>'AmountPaid', 'enabled'=>'1', 'position'=>3, 'notnull'=>0, 'visible'=>1, 'default'=>'null', 'isameasure'=>'1', 'help'=>"Help text for amount",),
 		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>'1', 'position'=>500, 'notnull'=>1, 'visible'=>-2,),
 		'email' => array('type'=>'varchar(64)', 'label'=>'Adresse email', 'enabled'=>'1', 'position'=>2, 'notnull'=>1, 'visible'=>1,),
@@ -155,7 +155,7 @@ class DjMasterclassStagiaire extends CommonObject
 
 		$this->db = $db;
 
-		if (empty($conf->global->MAIN_SHOW_TECHNICAL_ID) && isset($this->fields['rowid'])) $this->fields['rowid']['visible'] = 0;
+		//if (empty($conf->global->MAIN_SHOW_TECHNICAL_ID) && isset($this->fields['rowid'])) $this->fields['rowid']['visible'] = 0;
 		if (empty($conf->multicompany->enabled) && isset($this->fields['entity'])) $this->fields['entity']['enabled'] = 0;
 
 		// Example to show how to set values of fields definition dynamically

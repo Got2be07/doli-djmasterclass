@@ -499,6 +499,7 @@ while ($i < ($limit ? min($num, $limit) : $num))
 
 	// Store properties in $object
 	$object->setVarsFromFetchObj($obj);
+	$object->rowid = $object->id;
 
 	// Show here line of result
 	print '<tr class="oddeven">';
