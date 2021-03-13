@@ -36,7 +36,7 @@ class mod_djmasterclasssession_standard extends ModeleNumRefDjMasterclassSession
 	 */
 	public $version = 'dolibarr'; // 'development', 'experimental', 'dolibarr'
 
-	public $prefix = 'DJMASTERCLASSSESSION';
+	public $prefix = 'SESS';
 
 	/**
 	 * @var string Error code (or message)

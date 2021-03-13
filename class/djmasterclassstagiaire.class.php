@@ -95,10 +95,10 @@ class DjMasterclassStagiaire extends CommonObject
 	 */
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>0, 'noteditable'=>'1', 'index'=>1, 'comment'=>"Id"),
-		'amount' => array('type'=>'price', 'label'=>'Amount', 'enabled'=>'1', 'position'=>40, 'notnull'=>0, 'visible'=>1, 'default'=>'null', 'isameasure'=>'1', 'help'=>"Help text for amount",),
+		'amount' => array('type'=>'price', 'label'=>'AmountPaid', 'enabled'=>'1', 'position'=>3, 'notnull'=>0, 'visible'=>1, 'default'=>'null', 'isameasure'=>'1', 'help'=>"Help text for amount",),
 		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>'1', 'position'=>500, 'notnull'=>1, 'visible'=>-2,),
-		'email' => array('type'=>'varchar(64)', 'label'=>'Adresse email', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>1,),
-		'fk_djmasterclasssession' => array('type'=>'integer:DjMasterclassSession:djmasterclass/class/djmasterclasssession.class.php:1:status>0', 'label'=>'DJ Masterclass Session', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>1,),
+		'email' => array('type'=>'varchar(64)', 'label'=>'Adresse email', 'enabled'=>'1', 'position'=>2, 'notnull'=>1, 'visible'=>1,),
+		'fk_djmasterclasssession' => array('type'=>'integer:DjMasterclassSession:djmasterclass/class/djmasterclasssession.class.php:1:status>0', 'label'=>'DJ Masterclass Session', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>1,),
 	);
 	public $rowid;
 	public $amount;

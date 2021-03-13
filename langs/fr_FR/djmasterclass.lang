@@ -51,3 +51,8 @@ MyWidgetDescription = Description de mon widget
 NewDjmasterclass_session=Créer une nouvelle session
 ListDjmasterclass_session=Liste des sessions
 addStagiaire=Ajouter un participant
+listStagiaire=Liste des participants
+
+AmountPaid=Montant réglé
+DjMasterclassStagiaire=Stagiaire
+DjMasterclassStagiaires=Stagiaires

@@ -104,7 +104,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // Default sort order (if not yet defined by previous GETPOST)
-if (!$sortfield) $sortfield = "t.".key($object->fields); // Set here default search field. By default 1st field in definition.
+if (!$sortfield) $sortfield = "t.rowid"; // Set here default search field. By default 1st field in definition.
 if (!$sortorder) $sortorder = "ASC";
 
 // Initialize array of search criterias
@@ -148,9 +148,9 @@ if (is_array($extrafields->attributes[$object->table_element]['label']) && count
 $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
-$permissiontoread = $user->rights->djmasterclass->djmasterclassstagiaire->read;
-$permissiontoadd = $user->rights->djmasterclass->djmasterclassstagiaire->write;
-$permissiontodelete = $user->rights->djmasterclass->djmasterclassstagiaire->delete;
+$permissiontoread = $user->rights->djmasterclass->djmasterclasssession->read;
+$permissiontoadd = $user->rights->djmasterclass->djmasterclasssession->write;
+$permissiontodelete = $user->rights->djmasterclass->djmasterclasssession->delete;
 
 // Security check
 if (empty($conf->djmasterclass->enabled)) accessforbidden('Module not enabled');

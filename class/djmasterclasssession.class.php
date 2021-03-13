@@ -107,7 +107,7 @@ class DjMasterclassSession extends CommonObject
 		'fk_user_modif' => array('type'=>'integer:User:user/class/user.class.php', 'label'=>'UserModif', 'enabled'=>'1', 'position'=>511, 'notnull'=>-1, 'visible'=>-2,),
 		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'enabled'=>'1', 'position'=>1000, 'notnull'=>-1, 'visible'=>-2,),
 		'model_pdf' => array('type'=>'varchar(255)', 'label'=>'Model pdf', 'enabled'=>'1', 'position'=>1010, 'notnull'=>-1, 'visible'=>0,),
-		'status' => array('type'=>'smallint', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Brouillon', '1'=>'Valid&eacute;', '9'=>'Annul&eacute;'),),
+		'status' => array('type'=>'smallint', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>4, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Brouillon', '1'=>'Valid&eacute;', '9'=>'Annul&eacute;'),),
 		'date_session' => array('type'=>'date', 'label'=>'Date session', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>1,),
 		'nb_participants' => array('type'=>'integer', 'label'=>'Nombre de places disponibles', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>-1,),
 	);
@@ -220,6 +220,7 @@ class DjMasterclassSession extends CommonObject
 	 */
 	public function create(User $user, $notrigger = false)
 	{
+		$this->status = (int)$this->status;
 		return $this->createCommon($user, $notrigger);
 	}
 

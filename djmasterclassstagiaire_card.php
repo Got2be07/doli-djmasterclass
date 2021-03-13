@@ -102,11 +102,11 @@ if (empty($action) && empty($id) && empty($ref)) $action = 'view';
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once.
 
 
-$permissiontoread = $user->rights->djmasterclass->djmasterclassstagiaire->read;
-$permissiontoadd = $user->rights->djmasterclass->djmasterclassstagiaire->write; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$permissiontodelete = $user->rights->djmasterclass->djmasterclassstagiaire->delete || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$permissionnote = $user->rights->djmasterclass->djmasterclassstagiaire->write; // Used by the include of actions_setnotes.inc.php
-$permissiondellink = $user->rights->djmasterclass->djmasterclassstagiaire->write; // Used by the include of actions_dellink.inc.php
+$permissiontoread = $user->rights->djmasterclass->djmasterclasssession->read;
+$permissiontoadd = $user->rights->djmasterclass->djmasterclasssession->write; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+$permissiontodelete = $user->rights->djmasterclass->djmasterclasssession->delete || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+$permissionnote = $user->rights->djmasterclass->djmasterclasssession->write; // Used by the include of actions_setnotes.inc.php
+$permissiondellink = $user->rights->djmasterclass->djmasterclasssession->write; // Used by the include of actions_dellink.inc.php
 $upload_dir = $conf->djmasterclass->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
@@ -465,18 +465,18 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if (empty($reshook))
 		{
 			// Send
-			if (empty($user->socid)) {
+			/*if (empty($user->socid)) {
 				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a>'."\n";
-			}
+			}*/
 
 			// Back to draft
-			if ($object->status == $object::STATUS_VALIDATED)
+			/*if ($object->status == $object::STATUS_VALIDATED)
 			{
 				if ($permissiontoadd)
 				{
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes">'.$langs->trans("SetToDraft").'</a>';
 				}
-			}
+			}*/
 
 			// Modify
 			if ($permissiontoadd)
@@ -489,7 +489,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}
 
 			// Validate
-			if ($object->status == $object::STATUS_DRAFT)
+			/*if ($object->status == $object::STATUS_DRAFT)
 			{
 				if ($permissiontoadd)
 				{
@@ -503,13 +503,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						print '<a class="butActionRefused" href="" title="'.$langs->trans("ErrorAddAtLeastOneLineFirst").'">'.$langs->trans("Validate").'</a>';
 					}
 				}
-			}
+			}*/
 
 			// Clone
-			if ($permissiontoadd)
+			/*if ($permissiontoadd)
 			{
 				print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&socid='.$object->socid.'&action=clone&object=djmasterclassstagiaire">'.$langs->trans("ToClone").'</a>'."\n";
-			}
+			}*/
 
 			/*
 			if ($permissiontoadd)
