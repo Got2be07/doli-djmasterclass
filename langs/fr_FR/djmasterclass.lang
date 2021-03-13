@@ -20,7 +20,7 @@
 # Module label 'ModuleDjmasterclassName'
 ModuleDjmasterclassName = DJ Masterclass
 # Module description 'ModuleDjmasterclassDesc'
-ModuleDjmasterclassDesc = Description de Djmasterclass
+ModuleDjmasterclassDesc = Module de gestion des Masterclass DJ
 
 #
 # Page d'administration
@@ -56,3 +56,6 @@ listStagiaire=Liste des participants
 AmountPaid=Montant réglé
 DjMasterclassStagiaire=Stagiaire
 DjMasterclassStagiaires=Stagiaires
+DjMasterclassSession=Session Masterclass DJ
+NewDjMasterclassSession=Nouvelle session Masterclass DJ
+ListDjMasterclassSession=Liste des sessions masterclass DJ

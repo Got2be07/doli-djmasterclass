@@ -73,7 +73,7 @@ class modDjmasterclass extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'generic';
+		$this->picto = 'djmasterclass@djmasterclass';
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
 			// Set this to 1 if module has its own trigger directory (core/triggers)
@@ -350,8 +350,8 @@ class modDjmasterclass extends DolibarrModules
             // This is a Left menu entry
             'type'=>'left',
             'titre'=>'NewDjmasterclass_session',
-            'mainmenu'=>'djmasterclass_djmasterclass_session',
-            'leftmenu'=>'djmasterclass_djmasterclass_session',
+            'mainmenu'=>'djmasterclass',
+            'leftmenu'=>'sessioncreate',
             'url'=>'/djmasterclass/djmasterclasssession_card.php?action=create',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'djmasterclass@djmasterclass',
@@ -371,8 +371,8 @@ class modDjmasterclass extends DolibarrModules
             // This is a Left menu entry
             'type'=>'left',
             'titre'=>'ListDjmasterclass_session',
-            'mainmenu'=>'djmasterclass_djmasterclass_session',
-            'leftmenu'=>'djmasterclass_djmasterclass_session',
+            'mainmenu'=>'djmasterclass',
+            'leftmenu'=>'sessionlist',
             'url'=>'/djmasterclass/djmasterclasssession_list.php',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'djmasterclass@djmasterclass',
@@ -392,8 +392,8 @@ class modDjmasterclass extends DolibarrModules
             // This is a Left menu entry
             'type'=>'left',
             'titre'=>'addStagiaire',
-            'mainmenu'=>'djmasterclass_djmasterclass_session',
-            'leftmenu'=>'djmasterclass_djmasterclass_session',
+            'mainmenu'=>'djmasterclass',
+            'leftmenu'=>'stagiairecreate',
             'url'=>'/djmasterclass/djmasterclassstagiaire_card.php?action=create',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'djmasterclass@djmasterclass',
@@ -413,8 +413,8 @@ class modDjmasterclass extends DolibarrModules
             // This is a Left menu entry
             'type'=>'left',
             'titre'=>'listStagiaire',
-            'mainmenu'=>'djmasterclass_djmasterclass_session',
-            'leftmenu'=>'djmasterclass_djmasterclass_session',
+            'mainmenu'=>'djmasterclass',
+            'leftmenu'=>'stagiairelist',
             'url'=>'/djmasterclass/djmasterclassstagiaire_list.php',
             // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
             'langs'=>'djmasterclass@djmasterclass',

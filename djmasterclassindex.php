@@ -74,9 +74,9 @@ $now = dol_now();
 $form = new Form($db);
 $formfile = new FormFile($db);
 
-llxHeader("", $langs->trans("DjmasterclassArea"));
+llxHeader("", $langs->trans("ModuleDjmasterclassDesc"));
 
-print load_fiche_titre($langs->trans("DjmasterclassArea"), '', 'djmasterclass.png@djmasterclass');
+print load_fiche_titre($langs->trans("ModuleDjmasterclassDesc"), '', 'object_djmasterclass.png@djmasterclass');
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 
