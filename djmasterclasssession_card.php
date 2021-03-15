@@ -469,8 +469,14 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a>'."\n";
 			}*/
 
+			// Add stagiaire
+                        if (!empty($object->status)) {
+                                print '<a class="butAction" href="'.dol_buildpath('/djmasterclass/djmasterclassstagiaire_card.php', 1).'?action=create&fk_djmasterclasssession='.$object->id.'">'.
+				$langs->trans('addStagiaire').'</a>'."\n";
+                        }
+
 			// Show stagiaires
-			if (empty($user->socid)) {
+			if (!empty($object->status)) {
 				print '<a class="butAction" href="'.dol_buildpath('/djmasterclass/djmasterclassstagiaire_list.php', 1).'?search_fk_djmasterclasssession='.$object->id.'">'.$langs->trans('ShowStagiaires').'</a>'."\n";
 			}
 
