@@ -216,7 +216,7 @@ $now = dol_now();
 
 //$help_url="EN:Module_DjMasterclassStagiaire|FR:Module_DjMasterclassStagiaire_FR|ES:Módulo_DjMasterclassStagiaire";
 $help_url = '';
-$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("DjMasterclassStagiaires"));
+$title = $langs->trans('listInscriptions');
 
 
 // Build and execute select
