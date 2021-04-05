@@ -1,3 +1,47 @@
+<?php
+
+
+	if (!defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL', '1'); // Disables token renewal
+	if (!defined('NOREQUIREMENU'))  define('NOREQUIREMENU', '1');
+	if (!defined('NOREQUIREHTML'))  define('NOREQUIREHTML', '1');
+	if (!defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX', '1');
+	if (!defined('NOLOGIN'))        define('NOLOGIN', '1');
+
+	require_once __DIR__ . '/../../../main.inc.php';
+	require_once __DIR__ . '/../class/djmasterclasssession.class.php';
+	require_once __DIR__ . '/../class/djmasterclassstagiaire.class.php';
+	
+	$nom = GETPOST('nom', 'alpha');
+	$prenom = GETPOST('prenom', 'alpha');
+	$email = GETPOST('email', 'alpha');
+	$phone = GETPOST('phone', 'alpha');
+	$id_masterclass = GETPOST('id_masterclass', 'alpha');
+	$action = GETPOST('action', 'alpha');
+
+	/*
+		Actions
+	*/
+
+	if($action === 'add_reservation' && !empty($id_masterclass) && !empty($prenom) && !empty($nom) && !empty($email)) {
+
+		$reservation = new djmasterclassstagiaire($db);
+		$reservation->fk_djmasterclasssession = $id_masterclass;
+		$reservation->lastname = $nom;
+		$reservation->firstname = $prenom;
+		$reservation->email = $email;
+		$reservation->phone = $phone;
+		$reservation->create($user);
+
+	}
+
+	/*
+		View
+	*/
+	$obj_masterclass = new djmasterclasssession($db);
+	$TAvailableSessions = $obj_masterclass->fetchAll('', '', 0, 0, array('status'=>1));
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,17 +71,6 @@
 
 </head>
 
-
-<?php
-
-	require_once __DIR__ . '/../../../main.inc.php';
-	require_once __DIR__ . '/../class/djmasterclasssession.class.php';
-	
-	$obj_masterclass = new djmasterclasssession($db);
-	$TAvailableSessions = $obj_masterclass->fetchAll('', '', 0, 0, array('status'=>1));
-
-?>
-
 <body>
 	<div id="booking" class="section">
 		<div class="section-center">
@@ -52,42 +85,62 @@
 					</div>
 					<div class="col-md-4 col-md-pull-7">
 						<div class="booking-form">
-							<form>
-								<div class="form-group">
-									<!--<input class="form-control" type="text" placeholder="Enter a destination or hotel name">-->
-										<div class="form-group">
+							<?php
+
+								if(!empty($TAvailableSessions)) {
+									print '<form name="reservation_masterclass_form" method="POST" action="'.$_SERVER['PHP_SELF'].'">
+											<input type="hidden" name="action" value="add_reservation" />
+											<div class="form-group">
+									
+
 											<span class="form-label">Session masterclass</span>
-											<select class="form-control" id="id_masterclass">
-												<?php
-													foreach ($TAvailableSessions as $key => $value) {
-														print '<option value="'.$value->id.'">'.$value->label.'</option>';
-													}
-												?>
-											</select>
+											<select name="id_masterclass" class="form-control" id="id_masterclass">';
+										
+											foreach ($TAvailableSessions as $key => $value) {
+												print '<option value="'.$value->id.'">'.$value->label.'</option>';
+											}
+
+											print '</select>
+
 											<span class="select-arrow"></span>
-										</div>
-								</div>
-								<div class="form-group">
-									<div class="form-group">
-										<span class="form-label">Nom</span>
-										<input class="form-control" type="text" placeholder="Renseignez votre nom">
-										<span class="select-arrow"></span>
-									</div>
-									<div class="form-group">
-										<span class="form-label">Prénom</span>
-										<input class="form-control" type="text" placeholder="Renseignez votre prénom">
-										<span class="select-arrow"></span>
-									</div>
-									<div class="form-group">
-										<span class="form-label">Adresse email</span>
-										<input class="form-control" type="text" placeholder="Renseignez votre adresse email">
-										<span class="select-arrow"></span>
-									</div>
-								</div>
-								<div class="form-btn">
-									<button class="submit-btn">Réserver session</button>
-								</div>
-							</form>
+											</div>
+											<div class="form-group">
+												<div class="form-group">
+													<span class="form-label">Nom</span>
+													<input value="'.$nom.'" name="nom" class="form-control" type="text" placeholder="Renseignez votre nom">';
+													if(empty($nom) && !empty($action)) print '<span style="color:red;">* Champ obligatoire</span>';
+											print '<span class="select-arrow"></span>
+												</div>
+												<div class="form-group">
+													<span class="form-label">Prénom</span>
+													<input name="prenom" value="'.$prenom.'" class="form-control" type="text" placeholder="Renseignez votre prénom">';
+													if(empty($prenom) && !empty($action)) print '<span style="color:red;">* Champ obligatoire</span>';
+											print '<span class="select-arrow"></span>
+												</div>
+												<div class="form-group">
+													<span class="form-label">Adresse email</span>
+													<input  value="'.$email.'" name="email" class="form-control" type="text" placeholder="Renseignez votre adresse email">';
+													if(empty($email) && !empty($action)) print '<span style="color:red;">* Champ obligatoire</span>';
+											print '<span class="select-arrow"></span>
+												</div>
+												<div class="form-group">
+													<span class="form-label">Numéro de téléphone</span>
+													<input value="'.$phone.'" name="phone" class="form-control" type="text" placeholder="Renseignez votre numéro de téléphone">
+													<span class="select-arrow"></span>
+												</div>
+											</div>
+											<div class="form-btn">
+												<button class="submit-btn">Réserver session</button>
+											</div>
+											</form>';
+								} else {
+
+									print '<span class="form-label">Aucun session disponible actuellement !</span>';
+
+								}
+
+											?>
+
 						</div>
 					</div>
 				</div>

@@ -20,6 +20,10 @@ CREATE TABLE llx_djmasterclass_djmasterclassstagiaire(
 	amount double DEFAULT NULL, 
 	date_creation datetime NOT NULL, 
 	email varchar(64) NOT NULL, 
+	lastname varchar(32) NOT NULL, 
+	firstname varchar(32) NOT NULL, 
+	phone varchar(16) NOT NULL, 
+	token varchar(32) NOT NULL, 
 	fk_djmasterclasssession integer NOT NULL
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;
