@@ -83,3 +83,13 @@ function djmasterclassstagiairePrepareHead($object)
 
 	return $head;
 }
+
+function RandomString()
+{
+	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	$randstring = '';
+	for ($i = 0; $i < 32; $i++) {
+		$randstring.= $characters[rand(0, strlen($characters)-1)];
+	}
+	return $randstring;
+}

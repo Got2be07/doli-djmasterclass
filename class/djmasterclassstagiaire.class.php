@@ -101,6 +101,7 @@ class DjMasterclassStagiaire extends CommonObject
 		'firstname' => array('type'=>'varchar(32)', 'label'=>'Prénom', 'enabled'=>'1', 'position'=>3, 'notnull'=>1, 'visible'=>1, 'default'=>'null'),
 		'email' => array('type'=>'varchar(64)', 'label'=>'Adresse email', 'enabled'=>'1', 'position'=>4, 'notnull'=>1, 'visible'=>1, 'default'=>'null',),
 		'phone' => array('type'=>'varchar(16)', 'label'=>'Téléphone', 'enabled'=>'1', 'position'=>5, 'notnull'=>0, 'visible'=>1, 'default'=>'null',),
+		'token' => array('type'=>'varchar(32)', 'label'=>'Token', 'enabled'=>'1', 'position'=>7, 'notnull'=>11, 'visible'=>0, 'default'=>'null',),
 		'fk_djmasterclasssession' => array('type'=>'integer:DjMasterclassSession:djmasterclass/class/djmasterclasssession.class.php:1:status>0', 'label'=>'DJ Masterclass Session', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>1,),
 	);
 	public $rowid;

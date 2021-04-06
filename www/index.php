@@ -10,6 +10,7 @@
 	require_once __DIR__ . '/../../../main.inc.php';
 	require_once __DIR__ . '/../class/djmasterclasssession.class.php';
 	require_once __DIR__ . '/../class/djmasterclassstagiaire.class.php';
+	require_once __DIR__ . '/../lib/djmasterclass_djmasterclassstagiaire.lib.php';
 	
 	$nom = GETPOST('nom', 'alpha');
 	$prenom = GETPOST('prenom', 'alpha');
@@ -24,13 +25,20 @@
 
 	if($action === 'add_reservation' && !empty($id_masterclass) && !empty($prenom) && !empty($nom) && !empty($email)) {
 
-		$reservation = new djmasterclassstagiaire($db);
-		$reservation->fk_djmasterclasssession = $id_masterclass;
-		$reservation->lastname = $nom;
-		$reservation->firstname = $prenom;
-		$reservation->email = $email;
-		$reservation->phone = $phone;
-		$reservation->create($user);
+	        $obj_reservation = new djmasterclassstagiaire($db);
+	        $TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('email'=>$email, 'fk_djmasterclasssession'=>$id_masterclass));
+
+		if(empty($TReservations)) { // N'est pas déjà enregistré pour cette session
+			$reservation = new djmasterclassstagiaire($db);
+			$reservation->fk_djmasterclasssession = $id_masterclass;
+			$reservation->lastname = $nom;
+			$reservation->firstname = $prenom;
+			$reservation->email = $email;
+			$reservation->phone = $phone;
+			$reservation->token = RandomString();
+
+			$reservation->create($user);
+		} else $msg = 'Vous êtes déjà inscrit(e) à cette session';
 
 	}
 
@@ -53,11 +61,17 @@
 
 	<title>Booking Form HTML Template</title>
 
+	<!-- JQuery -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
 	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="../lib/colorlib-booking-1/css/bootstrap.min.css" />
+
+        <!-- Notify -->
+        <script type="text/javascript" src="../js/notify.js"></script>
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="../lib/colorlib-booking-1/css/style.css" />
@@ -68,6 +82,15 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+
+<?php
+	if(!empty($msg)) print '
+	        <script type="text/javascript">
+	                $(document).ready(function(){
+	                        $.notify("'.$msg.'", "info");
+	                });
+	        </script>';
+?>
 
 </head>
 
