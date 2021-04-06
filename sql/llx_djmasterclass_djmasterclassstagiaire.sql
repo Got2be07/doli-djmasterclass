@@ -24,6 +24,7 @@ CREATE TABLE llx_djmasterclass_djmasterclassstagiaire(
 	firstname varchar(32) NOT NULL, 
 	phone varchar(16) NOT NULL, 
 	token varchar(32) NOT NULL, 
+	status smallint NOT NULL,
 	fk_djmasterclasssession integer NOT NULL
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;

@@ -36,8 +36,11 @@
 			$reservation->email = $email;
 			$reservation->phone = $phone;
 			$reservation->token = RandomString();
+			$reservation->status = 0;
 
 			$reservation->create($user);
+
+			$msg = '<h1>Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu</h1>';
 		} else $msg = 'Vous êtes déjà inscrit(e) à cette session';
 
 	}
@@ -87,7 +90,7 @@
 	if(!empty($msg)) print '
 	        <script type="text/javascript">
 	                $(document).ready(function(){
-	                        $.notify("'.$msg.'", "info");
+				$.notify("'.$msg.'", "info");
 	                });
 	        </script>';
 ?>
