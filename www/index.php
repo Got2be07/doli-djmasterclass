@@ -11,12 +11,13 @@
 	require_once __DIR__ . '/../class/djmasterclasssession.class.php';
 	require_once __DIR__ . '/../class/djmasterclassstagiaire.class.php';
 	require_once __DIR__ . '/../lib/djmasterclass_djmasterclassstagiaire.lib.php';
-	
+
 	$nom = GETPOST('nom', 'alpha');
 	$prenom = GETPOST('prenom', 'alpha');
 	$email = GETPOST('email', 'alpha');
 	$phone = GETPOST('phone', 'alpha');
 	$id_masterclass = GETPOST('id_masterclass', 'alpha');
+	$token_reservation = GETPOST('token_reservation', 'alpha');
 	$action = GETPOST('action', 'alpha');
 
 	/*
@@ -25,8 +26,8 @@
 
 	if($action === 'add_reservation' && !empty($id_masterclass) && !empty($prenom) && !empty($nom) && !empty($email)) {
 
-	        $obj_reservation = new djmasterclassstagiaire($db);
-	        $TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('email'=>$email, 'fk_djmasterclasssession'=>$id_masterclass));
+		$obj_reservation = new djmasterclassstagiaire($db);
+		$TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('email'=>$email, 'fk_djmasterclasssession'=>$id_masterclass));
 
 		if(empty($TReservations)) { // N'est pas déjà enregistré pour cette session
 			$reservation = new djmasterclassstagiaire($db);
@@ -35,14 +36,22 @@
 			$reservation->firstname = $prenom;
 			$reservation->email = $email;
 			$reservation->phone = $phone;
-			$reservation->token = RandomString();
+			$reservation->token_reservation = RandomString();
 			$reservation->status = 0;
 
 			$reservation->create($user);
 
-			$msg = '<h1>Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu</h1>';
+			$msg = 'Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu';
 		} else $msg = 'Vous êtes déjà inscrit(e) à cette session';
 
+	} elseif(!empty($token_reservation)) {
+		$obj_reservation = new djmasterclassstagiaire($db);
+		$TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('token_reservation'=>$token_reservation));
+		if(!empty($TReservations)) {
+			$reservation = $TReservations[key($TReservations)];
+			$reservation->status = 1;
+			if($reservation->update($user) > 0) $msg = 'Votre réservation est maintenant confirmée !';
+		}
 	}
 
 	/*
@@ -98,6 +107,7 @@
 </head>
 
 <body>
+
 	<div id="booking" class="section">
 		<div class="section-center">
 			<div class="container">
@@ -117,13 +127,15 @@
 									print '<form name="reservation_masterclass_form" method="POST" action="'.$_SERVER['PHP_SELF'].'">
 											<input type="hidden" name="action" value="add_reservation" />
 											<div class="form-group">
-									
+
 
 											<span class="form-label">Session masterclass</span>
 											<select name="id_masterclass" class="form-control" id="id_masterclass">';
-										
+
 											foreach ($TAvailableSessions as $key => $value) {
-												print '<option value="'.$value->id.'">'.$value->label.'</option>';
+												print '<option value="'.$value->id.'"';
+												if($value->id==$id_masterclass) print ' selected="selected"';
+												print '>'.$value->label.'</option>';
 											}
 
 											print '</select>

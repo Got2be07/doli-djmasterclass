@@ -101,7 +101,7 @@ class DjMasterclassStagiaire extends CommonObject
 		'firstname' => array('type'=>'varchar(32)', 'label'=>'Prénom', 'enabled'=>'1', 'position'=>3, 'notnull'=>1, 'visible'=>1, 'default'=>null),
 		'email' => array('type'=>'varchar(64)', 'label'=>'Adresse email', 'enabled'=>'1', 'position'=>4, 'notnull'=>1, 'visible'=>1, 'default'=>null,),
 		'phone' => array('type'=>'varchar(16)', 'label'=>'Téléphone', 'enabled'=>'1', 'position'=>5, 'notnull'=>0, 'visible'=>1, 'default'=>null,),
-		'token' => array('type'=>'varchar(32)', 'label'=>'Token', 'enabled'=>'1', 'position'=>7, 'notnull'=>1, 'visible'=>0, 'default'=>null,),
+		'token_reservation' => array('type'=>'varchar(32)', 'label'=>'Token', 'enabled'=>'1', 'position'=>7, 'notnull'=>1, 'visible'=>0, 'default'=>null,),
 		'status' => array('type'=>'smallint', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>4, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Non confirmé', '1'=>'Confirmé'),),
 		'fk_djmasterclasssession' => array('type'=>'integer:DjMasterclassSession:djmasterclass/class/djmasterclasssession.class.php:1:status>0', 'label'=>'DJ Masterclass Session', 'enabled'=>'1', 'position'=>1, 'notnull'=>1, 'visible'=>1,),
 	);
@@ -781,12 +781,10 @@ class DjMasterclassStagiaire extends CommonObject
 		{
 			global $langs;
 			//$langs->load("djmasterclass@djmasterclass");
-			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('Draft');
-			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Enabled');
-			$this->labelStatus[self::STATUS_CANCELED] = $langs->trans('Disabled');
-			$this->labelStatusShort[self::STATUS_DRAFT] = $langs->trans('Draft');
-			$this->labelStatusShort[self::STATUS_VALIDATED] = $langs->trans('Enabled');
-			$this->labelStatusShort[self::STATUS_CANCELED] = $langs->trans('Disabled');
+			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('Confirmed');
+			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Confirmed');
+			$this->labelStatusShort[self::STATUS_DRAFT] = $langs->trans('NotConfirmed');
+			$this->labelStatusShort[self::STATUS_VALIDATED] = $langs->trans('Confirmed');
 		}
 
 		$statusType = 'status'.$status;

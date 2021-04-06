@@ -22,8 +22,8 @@ CREATE TABLE llx_djmasterclass_djmasterclassstagiaire(
 	email varchar(64) NOT NULL, 
 	lastname varchar(32) NOT NULL, 
 	firstname varchar(32) NOT NULL, 
-	phone varchar(16) NOT NULL, 
-	token varchar(32) NOT NULL, 
+	phone varchar(16) NOT NULL,
+    token_reservation varchar(32) NOT NULL,
 	status smallint NOT NULL,
 	fk_djmasterclasssession integer NOT NULL
 	-- END MODULEBUILDER FIELDS
