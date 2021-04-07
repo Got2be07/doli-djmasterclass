@@ -123,24 +123,26 @@
 						<div class="booking-form">
 							<?php
 
-								if(!empty($TAvailableSessions)) {
 									print '<form name="reservation_masterclass_form" method="POST" action="'.$_SERVER['PHP_SELF'].'">
 											<input type="hidden" name="action" value="add_reservation" />
-											<div class="form-group">
+											<div class="form-group">';
 
 
-											<span class="form-label">Session masterclass</span>
-											<select name="id_masterclass" class="form-control" id="id_masterclass">';
+											if(empty($TAvailableSessions)) {
+												print '<span style="color:red;" class="form-label">Aucune session disponible actuellement';
+											} else {
+												print '<span class="form-label">Session masterclass</span>';
+												print '<select name="id_masterclass" class="form-control" id="id_masterclass">';
+												foreach ($TAvailableSessions as $key => $value) {
+													print '<option value="'.$value->id.'"';
+													if($value->id==$id_masterclass) print ' selected="selected"';
+													print '>'.$value->label.'</option>';
+												}
+												print '</select>';
 
-											foreach ($TAvailableSessions as $key => $value) {
-												print '<option value="'.$value->id.'"';
-												if($value->id==$id_masterclass) print ' selected="selected"';
-												print '>'.$value->label.'</option>';
 											}
 
-											print '</select>
-
-											<span class="select-arrow"></span>
+											print '<span class="select-arrow"></span>
 											</div>
 											<div class="form-group">
 												<div class="form-group">
@@ -168,14 +170,11 @@
 												</div>
 											</div>
 											<div class="form-btn">
-												<button class="submit-btn">Réserver session</button>
+												<button class="submit-btn"';
+											if(empty($TAvailableSessions)) print ' disabled="disabled" title="Aucune session disponible actuellement"';
+											print '>Réserver session</button>
 											</div>
 											</form>';
-								} else {
-
-									print '<span class="form-label">Aucun session disponible actuellement !</span>';
-
-								}
 
 											?>
 
