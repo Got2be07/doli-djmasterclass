@@ -26,23 +26,31 @@
 
 	if($action === 'add_reservation' && !empty($id_masterclass) && !empty($prenom) && !empty($nom) && !empty($email)) {
 
-		$obj_reservation = new djmasterclassstagiaire($db);
-		$TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('email'=>$email, 'fk_djmasterclasssession'=>$id_masterclass));
+		$sess = new DjMasterclassSession($db);
+		if($sess->fetch($id_masterclass) > 0) {
 
-		if(empty($TReservations)) { // N'est pas déjà enregistré pour cette session
-			$reservation = new djmasterclassstagiaire($db);
-			$reservation->fk_djmasterclasssession = $id_masterclass;
-			$reservation->lastname = $nom;
-			$reservation->firstname = $prenom;
-			$reservation->email = $email;
-			$reservation->phone = $phone;
-			$reservation->token_reservation = RandomString();
-			$reservation->status = 0;
+			$obj_reservation = new djmasterclassstagiaire($db);
+			$TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('email' => $email, 'fk_djmasterclasssession' => $id_masterclass));
 
-			$reservation->create($user);
+			if (empty($TReservations)) { // N'est pas déjà enregistré pour cette session
+				if($sess->getNbPlacesRestantes() > 0) {
+					$reservation = new djmasterclassstagiaire($db);
+					$reservation->fk_djmasterclasssession = $id_masterclass;
+					$reservation->lastname = $nom;
+					$reservation->firstname = $prenom;
+					$reservation->email = $email;
+					$reservation->phone = $phone;
+					$reservation->token_reservation = RandomString();
+					$reservation->status = 0;
 
-			$msg = 'Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu';
-		} else $msg = 'Vous êtes déjà inscrit(e) à cette session';
+					$reservation->create($user);
+
+					$msg = 'Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu';
+				} else {
+					$msg = 'Il n\'y a plus de places disponibles pour cette session';
+				}
+			} else $msg = 'Vous êtes déjà inscrit(e) à cette session';
+		}
 
 	} elseif(!empty($token_reservation)) {
 		$obj_reservation = new djmasterclassstagiaire($db);
