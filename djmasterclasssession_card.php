@@ -477,7 +477,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Show stagiaires
 			if (!empty($object->status)) {
-				print '<a class="butAction" href="'.dol_buildpath('/djmasterclass/djmasterclassstagiaire_list.php', 1).'?search_fk_djmasterclasssession='.$object->id.'">'.$langs->trans('ShowStagiaires').'</a>'."\n";
+				print '<a class="butAction" href="'.dol_buildpath('/djmasterclass/djmasterclassstagiaire_list.php', 1).'?search_fk_djmasterclasssession='.$object->id.'">'.$langs->trans('ShowStagiaires', (int)$object->getNbInscriptionsValidees()).'</a>'."\n";
 			}
 
 			// Back to draft

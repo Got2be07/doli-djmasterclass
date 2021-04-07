@@ -203,6 +203,8 @@ class DjMasterclassStagiaire extends CommonObject
 	 */
 	public function create(User $user, $notrigger = false)
 	{
+		if(empty($this->token_reservation)) $this->token_reservation = RandomString();
+		$this->status = (int)$this->status;
 		return $this->createCommon($user, $notrigger);
 	}
 
@@ -781,7 +783,7 @@ class DjMasterclassStagiaire extends CommonObject
 		{
 			global $langs;
 			//$langs->load("djmasterclass@djmasterclass");
-			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('Confirmed');
+			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('NotConfirmed');
 			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Confirmed');
 			$this->labelStatusShort[self::STATUS_DRAFT] = $langs->trans('NotConfirmed');
 			$this->labelStatusShort[self::STATUS_VALIDATED] = $langs->trans('Confirmed');

@@ -108,7 +108,7 @@ class DjMasterclassSession extends CommonObject
 		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'enabled'=>'1', 'position'=>1000, 'notnull'=>-1, 'visible'=>-2,),
 		'model_pdf' => array('type'=>'varchar(255)', 'label'=>'Model pdf', 'enabled'=>'1', 'position'=>1010, 'notnull'=>-1, 'visible'=>0,),
 		'status' => array('type'=>'smallint', 'label'=>'Status', 'enabled'=>'1', 'position'=>1000, 'notnull'=>1, 'visible'=>4, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Brouillon', '1'=>'Valid&eacute;', '9'=>'Annul&eacute;'),),
-		'date_session' => array('type'=>'date', 'label'=>'Date session', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>1,),
+		'date_session' => array('type'=>'date', 'label'=>'Date début session', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>1,),
 		'nb_participants' => array('type'=>'integer', 'label'=>'Nombre de places disponibles', 'enabled'=>'1', 'position'=>50, 'notnull'=>1, 'visible'=>-1,),
 	);
 	public $rowid;
@@ -209,6 +209,30 @@ class DjMasterclassSession extends CommonObject
 				}
 			}
 		}
+	}
+
+	function getNbInscriptionsValidees() {
+
+		global $db;
+
+		require_once __DIR__ . '/djmasterclassstagiaire.class.php';
+
+		$obj_resa = new DjMasterclassStagiaire($db);
+		$sql = 'SELECT count(*) as nb_resa_valid FROM '.MAIN_DB_PREFIX.$obj_resa->table_element.' WHERE status = 1 AND fk_djmasterclasssession = '.$this->id;
+
+		$resql = $db->query($sql);
+		if(!empty($resql)) {
+			$res = $db->fetch_object($resql);
+			return $res->nb_resa_valid;
+		}
+
+	}
+
+	function getNbPlacesRestantes() {
+
+		$nb_places_restantes = $this->nb_participants - (int)$this->getNbInscriptionsValidees();
+		return $nb_places_restantes >= 0 ? $nb_places_restantes : 0;
+
 	}
 
 	/**
@@ -801,11 +825,11 @@ class DjMasterclassSession extends CommonObject
 			global $langs;
 			//$langs->load("djmasterclass@djmasterclass");
 			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('Draft');
-			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Enabled');
-			$this->labelStatus[self::STATUS_CANCELED] = $langs->trans('Disabled');
+			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Validated');
+			$this->labelStatus[self::STATUS_CANCELED] = $langs->trans('Canceled');
 			$this->labelStatusShort[self::STATUS_DRAFT] = $langs->trans('Draft');
-			$this->labelStatusShort[self::STATUS_VALIDATED] = $langs->trans('Enabled');
-			$this->labelStatusShort[self::STATUS_CANCELED] = $langs->trans('Disabled');
+			$this->labelStatusShort[self::STATUS_VALIDATED] = $langs->trans('Validated');
+			$this->labelStatusShort[self::STATUS_CANCELED] = $langs->trans('Canceled');
 		}
 
 		$statusType = 'status'.$status;

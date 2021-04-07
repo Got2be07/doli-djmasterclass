@@ -58,7 +58,7 @@
 		View
 	*/
 	$obj_masterclass = new djmasterclasssession($db);
-	$TAvailableSessions = $obj_masterclass->fetchAll('', '', 0, 0, array('status'=>1));
+	$TAvailableSessions = $obj_masterclass->fetchAll('', '', 0, 0, array('status'=>1, 'customsql'=>' date_session > "'.date('Y-m-d').'"'));
 
 ?>
 
@@ -136,7 +136,7 @@
 												foreach ($TAvailableSessions as $key => $value) {
 													print '<option value="'.$value->id.'"';
 													if($value->id==$id_masterclass) print ' selected="selected"';
-													print '>'.$value->label.'</option>';
+													print '>'.$value->label.'&nbsp;('.$value->amount.'€)</option>';
 												}
 												print '</select>';
 
@@ -146,22 +146,25 @@
 											</div>
 											<div class="form-group">
 												<div class="form-group">
-													<span class="form-label">Nom</span>
-													<input value="'.$nom.'" name="nom" class="form-control" type="text" placeholder="Renseignez votre nom">';
-													if(empty($nom) && !empty($action)) print '<span style="color:red;">* Champ obligatoire</span>';
-											print '<span class="select-arrow"></span>
+													<span class="form-label">Nom&nbsp;';
+													if(empty($nom) && !empty($action)) print '<span style="color:red;">(Champ obligatoire)</span>';
+											print '</span>
+													<input value="'.$nom.'" name="nom" class="form-control" type="text" placeholder="Renseignez votre nom">
+												<span class="select-arrow"></span>
 												</div>
 												<div class="form-group">
-													<span class="form-label">Prénom</span>
-													<input name="prenom" value="'.$prenom.'" class="form-control" type="text" placeholder="Renseignez votre prénom">';
-													if(empty($prenom) && !empty($action)) print '<span style="color:red;">* Champ obligatoire</span>';
-											print '<span class="select-arrow"></span>
+													<span class="form-label">Prénom&nbsp;';
+													if(empty($prenom) && !empty($action)) print '<span style="color:red;">(Champ obligatoire)</span>';
+											print '</span>
+													<input name="prenom" value="'.$prenom.'" class="form-control" type="text" placeholder="Renseignez votre prénom">
+													<span class="select-arrow"></span>
 												</div>
 												<div class="form-group">
-													<span class="form-label">Adresse email</span>
-													<input  value="'.$email.'" name="email" class="form-control" type="text" placeholder="Renseignez votre adresse email">';
-													if(empty($email) && !empty($action)) print '<span style="color:red;">* Champ obligatoire</span>';
-											print '<span class="select-arrow"></span>
+													<span class="form-label">Adresse email&nbsp;';
+													if(empty($email) && !empty($action)) print '<span style="color:red;">(Champ obligatoire)</span>';
+											print '</span>
+													<input  value="'.$email.'" name="email" class="form-control" type="text" placeholder="Renseignez votre adresse email">
+													<span class="select-arrow"></span>
 												</div>
 												<div class="form-group">
 													<span class="form-label">Numéro de téléphone</span>
