@@ -88,13 +88,13 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="../lib/colorlib-booking-1/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="https://djsfrenchcandy.com/gestion/htdocs/custom/djmasterclass/lib/colorlib-booking-1/css/bootstrap.min.css" />
 
         <!-- Notify -->
-        <script type="text/javascript" src="../js/notify.js"></script>
+        <script type="text/javascript" src="https://djsfrenchcandy.com/gestion/htdocs/custom/djmasterclass/js/notify.js"></script>
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="../lib/colorlib-booking-1/css/style.css" />
+	<link type="text/css" rel="stylesheet" href="https://djsfrenchcandy.com/gestion/htdocs/custom/djmasterclass/lib/colorlib-booking-1/css/style.css" />
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
