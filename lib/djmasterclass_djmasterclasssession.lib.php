@@ -111,7 +111,7 @@ function send_email($session, $stagiaire, $label='MASTERCLASS_INSCRIPTION') {
 	$message = strtr($tpl->content, array('__PARCICIPANT__'=>$stagiaire->firstname, '__DESCRIPTION_MASTERCLASS__'=>'session masterclass "'.$session->label.'"'
 			, '__CONFIRMATION_LINK__'=>$_SERVER['SERVER_NAME'].'?token_reservation='.$stagiaire->token_reservation));
 
-	$mailfile = new CMailFile($subject, $sendto, $from, $message, $arr_file, $arr_mime, $arr_name, '', '', 0, $msgishtml, $user->email, '', $trackid);
+	$mailfile = new CMailFile($subject, $sendto, $from, nl2br($message), $arr_file, $arr_mime, $arr_name, '', '', 0, $msgishtml, $user->email, '', $trackid);
 
 	$result = $mailfile->sendfile();
 
