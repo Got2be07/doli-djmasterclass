@@ -79,7 +79,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Booking Form HTML Template</title>
+	<title><?php print $conf->global->MAIN_INFO_SOCIETE_NOM; ?></title>
 
 	<!-- JQuery -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -122,8 +122,10 @@
 				<div class="row">
 					<div class="col-md-7 col-md-push-5">
 						<div class="booking-cta">
-							<h1>Drôme DJ Academy</h1>
-							<p>Réservez sans plus attendre votre première session de formation DJ !
+							<h1><?php print $conf->global->MAIN_INFO_SOCIETE_NOM; ?></h1>
+							<p><?php empty($conf->global->MASTERCLASS_FORMULAIRE_INSCRIPTION_DESCRIPTION) 
+									? print 'Réservez sans plus attendre votre première session de formation DJ !'
+									: print $conf->global->MASTERCLASS_FORMULAIRE_INSCRIPTION_DESCRIPTION ?>
 							</p>
 						</div>
 					</div>
