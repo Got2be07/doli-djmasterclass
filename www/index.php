@@ -89,7 +89,7 @@
 	<title><?php print $conf->global->MAIN_INFO_SOCIETE_NOM; ?></title>
 
 	<!-- JQuery -->
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
