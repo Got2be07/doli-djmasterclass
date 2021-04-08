@@ -83,3 +83,36 @@ function djmasterclasssessionPrepareHead($object)
 
 	return $head;
 }
+
+function send_email($session, $stagiaire, $label='MASTERCLASS_INSCRIPTION') {
+
+	global $db, $user, $langs, $conf;
+
+	if(empty($conf->global->MAIN_INFO_SOCIETE_MAIL) || empty($stagiaire->email)) return 0;
+
+	require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+
+	$formmail = new FormMail($db);
+	$tpl = $formmail->getEMailTemplate($db, $type_template, $user, $outputlangs, $id = 0, $active = 1, $label);
+
+	if(empty($tpl->id)) return 0;
+
+	$subject = $tpl->topic;
+	$sendto = $stagiaire->lastname.' '.$stagiaire->firstname." <".$stagiaire->email.">";
+	$from = $conf->global->MAIN_INFO_SOCIETE_NOM." <".$conf->global->MAIN_INFO_SOCIETE_MAIL.">";
+	$msgishtml = 1;
+	$trackid = 'use'.$user->id;
+
+	$arr_file = array();
+	$arr_mime = array();
+	$arr_name = array();
+
+	$message = strtr($tpl->content, array('__PARCICIPANT__'=>$stagiaire->firstname, '__DESCRIPTION_MASTERCLASS__'=>'session masterclass "'.$session->label.'"'
+			, '__CONFIRMATION_LINK__'=>$_SERVER['PHP_SELF'].'?token_reservation='.$stagiaire->token_reservation));
+
+	$mailfile = new CMailFile($subject, $sendto, $from, $message, $arr_file, $arr_mime, $arr_name, '', '', 0, $msgishtml, $user->email, '', $trackid);
+
+	$result = $mailfile->sendfile();
+
+}

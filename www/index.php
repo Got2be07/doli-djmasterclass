@@ -11,6 +11,7 @@
 	require_once __DIR__ . '/../class/djmasterclasssession.class.php';
 	require_once __DIR__ . '/../class/djmasterclassstagiaire.class.php';
 	require_once __DIR__ . '/../lib/djmasterclass_djmasterclassstagiaire.lib.php';
+	require_once __DIR__ . '/../lib/djmasterclass_djmasterclasssession.lib.php';
 
 	$nom = GETPOST('nom', 'alpha');
 	$prenom = GETPOST('prenom', 'alpha');
@@ -46,6 +47,9 @@
 					$reservation->create($user);
 
 					$TMsg = array('msg'=>"Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu", 'style'=>'success');
+
+					send_email($sess, $reservation, 'MASTERCLASS_INSCRIPTION');
+
 				} else {
 					$TMsg = array('msg'=>'Il n\'y a plus de place pour cette session', 'style'=>'warn');
 				}
@@ -58,7 +62,10 @@
 		if(!empty($TReservations)) {
 			$reservation = $TReservations[key($TReservations)];
 			$reservation->status = 1;
-			if($reservation->update($user) > 0) $TMsg = array('msg'=>'Votre réservation est maintenant confirmée !', 'style'=>'success');
+			if($reservation->update($user) > 0) {
+				$TMsg = array('msg'=>'Votre réservation est maintenant confirmée !', 'style'=>'success');
+				send_email($sess, $reservation, 'MASTERCLASS_CONFIRMATION');
+			}
 		}
 	}
 
