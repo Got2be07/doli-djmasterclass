@@ -45,11 +45,11 @@
 
 					$reservation->create($user);
 
-					$msg = 'Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu';
+					$TMsg = array('msg'=>"Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu", 'style'=>'success');
 				} else {
-					$msg = 'Il n\'y a plus de places disponibles pour cette session';
+					$TMsg = array('msg'=>'Il n\'y a plus de place pour cette session', 'style'=>'warn');
 				}
-			} else $msg = 'Vous êtes déjà inscrit(e) à cette session';
+			} else $TMsg = array('msg'=>'Vous êtes déjà inscrit(e) à cette session', 'style'=>'info');
 		}
 
 	} elseif(!empty($token_reservation)) {
@@ -58,7 +58,7 @@
 		if(!empty($TReservations)) {
 			$reservation = $TReservations[key($TReservations)];
 			$reservation->status = 1;
-			if($reservation->update($user) > 0) $msg = 'Votre réservation est maintenant confirmée !';
+			if($reservation->update($user) > 0) $TMsg = array('msg'=>'Votre réservation est maintenant confirmée !', 'style'=>'success');
 		}
 	}
 
@@ -66,8 +66,8 @@
 		View
 	*/
 	$obj_masterclass = new djmasterclasssession($db);
-	$TAvailableSessions = $obj_masterclass->fetchAll('', '', 0, 0, array('status'=>1, 'customsql'=>' date_session > "'.date('Y-m-d').'"'));
-
+	$TAvailableSessions = $obj_masterclass->getAvailableSessions();
+//	$TAvailableSessions = $obj_masterclass->fetchAll('', '', 0, 0, array('status'=>1, 'customsql'=>' date_session > "'.date('Y-m-d').'"'));
 ?>
 
 <!DOCTYPE html>
@@ -104,12 +104,13 @@
 		<![endif]-->
 
 <?php
-	if(!empty($msg)) print '
+	if(!empty($TMsg)) print '
 	        <script type="text/javascript">
 	                $(document).ready(function(){
-				$.notify("'.$msg.'", "info");
+				$(".submit-btn").notify("'.$TMsg['msg'].'", {position:"top left", autoHideDelay:"20000", className:"'.$TMsg['style'].'"});
 	                });
 	        </script>';
+
 ?>
 
 </head>
@@ -182,6 +183,7 @@
 													<span class="select-arrow"></span>
 												</div>
 											</div>
+											<br />
 											<div class="form-btn">
 												<button class="submit-btn"';
 											if(empty($TAvailableSessions)) print ' disabled="disabled" title="Aucune session disponible actuellement"';

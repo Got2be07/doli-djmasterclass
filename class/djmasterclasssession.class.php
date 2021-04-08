@@ -235,6 +235,16 @@ class DjMasterclassSession extends CommonObject
 
 	}
 
+	function getAvailableSessions($check_places_restantes=true) {
+		$TAvailableSessions = $this->fetchAll('', '', 0, 0, array('status'=>1, 'customsql'=>' date_session > "'.date('Y-m-d').'"'));
+		if(!empty($TAvailableSessions)) {
+			foreach($TAvailableSessions as $id => $obj) {
+				if($obj->getNbPlacesRestantes() <= 0) unset($TAvailableSessions[$id]);
+			}
+		}
+		return $TAvailableSessions;
+	}
+
 	/**
 	 * Create object into database
 	 *
