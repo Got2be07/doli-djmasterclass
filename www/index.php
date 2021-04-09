@@ -64,7 +64,7 @@
 			$reservation = $TReservations[key($TReservations)];
 			$reservation->status = 1;
 			if($reservation->update($user) > 0) {
-				$TMsg = array('msg'=>'Votre réservation est maintenant confirmée !', 'style'=>'success');
+				$TMsg = array('msg'=>'Votre réservation est confirmée !', 'style'=>'success');
 		                $sess = new DjMasterclassSession($db);
 		                $sess->fetch($reservation->fk_djmasterclasssession);
 				send_email($sess, $reservation, 'MASTERCLASS_CONFIRMATION');
