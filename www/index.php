@@ -16,6 +16,7 @@
 	$nom = GETPOST('nom', 'alpha');
 	$prenom = GETPOST('prenom', 'alpha');
 	$email = GETPOST('email', 'alpha');
+	$is_valid_email = !empty(filter_var($email, FILTER_VALIDATE_EMAIL));
 	$phone = GETPOST('phone', 'alpha');
 	$id_masterclass = GETPOST('id_masterclass', 'alpha');
 	$token_reservation = GETPOST('token_reservation', 'alpha');
@@ -25,7 +26,7 @@
 		Actions
 	*/
 
-	if($action === 'add_reservation' && !empty($id_masterclass) && !empty($prenom) && !empty($nom) && !empty($email)) {
+	if($action === 'add_reservation' && !empty($id_masterclass) && !empty($prenom) && !empty($nom) && $is_valid_email) {
 
 		$sess = new DjMasterclassSession($db);
 		if($sess->fetch($id_masterclass) > 0) {
@@ -168,21 +169,21 @@
 											<div class="form-group">
 												<div class="form-group">
 													<span class="form-label">Nom&nbsp;';
-													if(empty($nom) && !empty($action)) print '<span style="color:red;">(Champ obligatoire)</span>';
+													if(empty($nom) && !empty($action)) print '<span style="color:red;">* champ obligatoire</span>';
 											print '</span>
 													<input value="'.$nom.'" name="nom" class="form-control" type="text" placeholder="Renseignez votre nom">
 												<span class="select-arrow"></span>
 												</div>
 												<div class="form-group">
 													<span class="form-label">Prénom&nbsp;';
-													if(empty($prenom) && !empty($action)) print '<span style="color:red;">(Champ obligatoire)</span>';
+													if(empty($prenom) && !empty($action)) print '<span style="color:red;">* champ obligatoire</span>';
 											print '</span>
 													<input name="prenom" value="'.$prenom.'" class="form-control" type="text" placeholder="Renseignez votre prénom">
 													<span class="select-arrow"></span>
 												</div>
 												<div class="form-group">
 													<span class="form-label">Adresse email&nbsp;';
-													if(empty($email) && !empty($action)) print '<span style="color:red;">(Champ obligatoire)</span>';
+													if((empty($email) || !$is_valid_email) && !empty($action)) print '<span style="color:red;">* email incorrect</span>';
 											print '</span>
 													<input  value="'.$email.'" name="email" class="form-control" type="text" placeholder="Renseignez votre adresse email">
 													<span class="select-arrow"></span>
