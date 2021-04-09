@@ -46,7 +46,8 @@
 
 					$reservation->create($user);
 
-					$TMsg = array('msg'=>"Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu", 'style'=>'success');
+					//$TMsg = array('msg'=>"Inscription effectuée avec succès, pensez à la confirmer grâce au lien disponible sur le mail que vous avez reçu", 'style'=>'success');
+					$TMsg = array('msg'=>"Parfait ! pensez à vérifier vos emails...", 'style'=>'success');
 
 					send_email($sess, $reservation, 'MASTERCLASS_INSCRIPTION');
 
