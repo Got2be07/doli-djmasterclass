@@ -118,7 +118,7 @@
 	if(!empty($TMsg)) print '
 	        <script type="text/javascript">
 	                $(document).ready(function(){
-				$(".submit-btn").notify("'.$TMsg['msg'].'", {position:"top left", autoHideDelay:"20000", className:"'.$TMsg['style'].'"});
+				$.notify("'.$TMsg['msg'].'", {position:"top left", autoHideDelay:"20000", className:"'.$TMsg['style'].'"});
 	                });
 	        </script>';
 
@@ -133,7 +133,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7 col-md-push-5">
-						<div class="booking-cta">
+					<?php if(isMobile()) print '<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />'; ?>
+						<div class="booking-cta<?php if(isMobile()) print '-mob'; ?>">
 							<h1><?php print $conf->global->MAIN_INFO_SOCIETE_NOM; ?></h1>
 							<p><?php empty($conf->global->MASTERCLASS_FORMULAIRE_INSCRIPTION_DESCRIPTION) 
 									? print 'Réservez sans plus attendre votre première session de formation DJ !'
