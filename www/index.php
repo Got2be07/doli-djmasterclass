@@ -63,13 +63,15 @@
 		$TReservations = $obj_reservation->fetchAll('', '', 0, 0, array('token_reservation'=>$token_reservation));
 		if(!empty($TReservations)) {
 			$reservation = $TReservations[key($TReservations)];
-			$reservation->status = 1;
-			if($reservation->update($user) > 0) {
-				$TMsg = array('msg'=>'Votre réservation est confirmée !', 'style'=>'success');
-		                $sess = new DjMasterclassSession($db);
-		                $sess->fetch($reservation->fk_djmasterclasssession);
-				send_email($sess, $reservation, 'MASTERCLASS_CONFIRMATION');
+			if(empty($reservation->status)) {
+				$reservation->status = 1;
+				if($reservation->update($user) > 0) {
+			                $sess = new DjMasterclassSession($db);
+			                $sess->fetch($reservation->fk_djmasterclasssession);
+					send_email($sess, $reservation, 'MASTERCLASS_CONFIRMATION');
+				}
 			}
+			$TMsg = array('msg'=>'Votre réservation est confirmée !', 'style'=>'success');
 		}
 	}
 
@@ -118,7 +120,7 @@
 	if(!empty($TMsg)) print '
 	        <script type="text/javascript">
 	                $(document).ready(function(){
-				$.notify("'.$TMsg['msg'].'", {position:"top left", autoHideDelay:"20000", className:"'.$TMsg['style'].'"});
+				$.notify("'.$TMsg['msg'].'", {position:"top right", autoHideDelay:"20000", className:"'.$TMsg['style'].'"});
 	                });
 	        </script>';
 
