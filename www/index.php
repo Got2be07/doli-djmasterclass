@@ -72,6 +72,8 @@
 				}
 			}
 			$TMsg = array('msg'=>'Votre réservation est confirmée !', 'style'=>'success');
+		} else {
+			$TMsg = array('msg'=>'Lien invalide, veuillez vous réinscrire', 'style'=>'warn');
 		}
 	}
 
