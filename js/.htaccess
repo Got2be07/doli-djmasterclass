@@ -1,0 +1,7 @@
+# Allow public connexion if your dolibar is protect by http auth or other
+Satisfy Any
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php [NC,L,QSA]
